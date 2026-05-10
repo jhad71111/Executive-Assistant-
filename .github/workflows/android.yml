@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-
   workflow_dispatch:
 
 jobs:
@@ -14,6 +13,7 @@ jobs:
     env:
       GRADLE_OPTS: -Dorg.gradle.daemon=false
       JAVA_OPTS: -Xmx2048m
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
     steps:
       - name: Checkout
@@ -34,7 +34,7 @@ jobs:
       - name: Build APK
         run: |
           ./gradlew clean --no-daemon
-          ./gradlew assembleDebug --stacktrace --info --no-daemon
+          ./gradlew assembleDebug --stacktrace --info
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
